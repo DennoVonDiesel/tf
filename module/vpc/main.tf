@@ -138,16 +138,16 @@ resource "aws_route_table_association" "private-nat-gw" {
 }
 
 # Subnets
-resource "aws_subnet" "intra" {
+resource "aws_subnet" "local" {
   count = "${length(var.az)}"
 
   vpc_id = "${aws_vpc.this.id}"
 
   availability_zone = "${format("%s%s", data.aws_region.current.name, element(var.az, count.index))}"
-  cidr_block        = "${element(var.db-subnet-cidr, count.index)}"
+  cidr_block        = "${element(var.local-subnet-cidr, count.index)}"
 
   tags = {
-    Name = "${format("%s-intra-%s%s", 
+    Name = "${format("%s-local-%s%s", 
       var.name, 
       var.region2abbr[data.aws_region.current.name],
       element(var.az, count.index)
@@ -159,7 +159,7 @@ resource "aws_subnet" "intra" {
 
 resource "aws_db_subnet_group" "this" {
   name       = "${var.name}"
-  subnet_ids = ["${aws_subnet.intranet.*.id}"]
+  subnet_ids = ["${aws_subnet.local.*.id}"]
 
   tags {
     Name = "${var.name}"
@@ -168,7 +168,7 @@ resource "aws_db_subnet_group" "this" {
 
 resource "aws_elasticache_subnet_group" "this" {
   name       = "${var.name}"
-  subnet_ids = ["${aws_subnet.intranet.*.id}"]
+  subnet_ids = ["${aws_subnet.local.*.id}"]
 
   tags {
     Name = "${var.name}"

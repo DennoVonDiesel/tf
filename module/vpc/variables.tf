@@ -50,19 +50,19 @@ variable "az" {
   description = "List of Availability Zones"
 }
 
-variable "db-subnet-cidr" {
+variable "local-subnet-cidr" {
   type        = "list"
-  description = "List of database CIDR blocks (mapping to azs)"
+  description = "List of Local CIDR blocks (mapping to AZs)"
 }
 
 variable "private-subnet-cidr" {
   type        = "list"
-  description = "List of private CIDR blocks (mapping to azs)"
+  description = "List of private CIDR blocks (mapping to AZs)"
 }
 
 variable "public-subnet-cidr" {
   type        = "list"
-  description = "List of public CIDR blocks (mapping to azs)"
+  description = "List of public CIDR blocks (mapping to AZs)"
 }
 
 variable "region2abbr" {
