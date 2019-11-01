@@ -87,7 +87,7 @@ func handler(event events.CloudWatchEvent) error {
 	}
 
 	// Include account name
-	account := fmt.Sprintf("%s (%s)", finding.AccountId, config.Account[finding.AccountId])
+	account := fmt.Sprintf("%s (%s)", finding.AccountId, config.Account[finding.AccountId].Name)
 
 	// URL to GuardDuty finding
 	findingURL := fmt.Sprintf(config.URL, event.Region, finding.ID)
