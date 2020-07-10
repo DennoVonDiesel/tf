@@ -1,3 +1,5 @@
+## Introduction
+
 This is a Terraform 0.12 module to quickly setup an AWS VPC in 10.x.0.0/16. It uses the Terraform Registry AWS VPC module: 
 
 https://registry.terraform.io/modules/terraform-aws-modules/vpc/
@@ -28,14 +30,13 @@ data "aws_subnet_ids" "public" {
 
 See https://www.terraform.io/docs/providers/aws/d/subnet_ids.html for more information.
 
-Example Usage
+## Example Usage
 
 ```
-module "dev" {
+module "vpc" {
   source = "git@github.com:DennoVonDiesel/tf/module/aws/vpc"
 
   name = "dev"
-  azs  = ["a", "b"]
 }
 ```
 
