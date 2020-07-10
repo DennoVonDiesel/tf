@@ -42,18 +42,18 @@ module "vpc" {
 
 # Datastores use Intranet subnets
 resource "aws_db_subnet_group" "default" {
-  name       = format("%s-default", var.name)
+  name       = format("%s-default", var.vpc)
   subnet_ids = module.vpc.intra_subnets
 
   tags = merge(
     {
-      Name = format("%s-default", var.name)
+      Name = format("%s-default", var.vpc)
     },
     var.tags
   )
 }
 
 resource "aws_elasticache_subnet_group" "default" {
-  name       = format("%s-default", var.name)
+  name       = format("%s-default", var.vpc)
   subnet_ids = module.vpc.intra_subnets
 }
