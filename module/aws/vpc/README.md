@@ -39,7 +39,7 @@ module "vpc" {
 }
 ```
 
-## Version
+## Version History
 
 v0.1.0: Initial release
 
