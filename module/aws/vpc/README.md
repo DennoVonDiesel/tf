@@ -20,7 +20,7 @@ data "aws_vpc" "vpc" {
 
 
 data "aws_subnet_ids" "public" {
-  vpc_id = data.aws_vpc.vpc.id
+  vpc_id = data.aws_vpc.<vpc class="id"></vpc>
 
   tags = {
     Tier = "public"
