@@ -49,7 +49,6 @@ resource "aws_db_subnet_group" "default" {
     {
       Name = format("%s-default", var.name)
     },
-    local.tags,
     var.tags
   )
 }

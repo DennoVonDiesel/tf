@@ -34,11 +34,14 @@ See https://www.terraform.io/docs/providers/aws/d/subnet_ids.html for more infor
 
 ```
 module "vpc" {
-  source = "git@github.com:DennoVonDiesel/tf/module/aws/vpc"
+  source = "git@github.com:DennoVonDiesel/tf/module/aws/vpc?ref=v0.1.0"
 
   name = "dev"
 }
 ```
+## Version
+
+v0.1.0: Initial release
 
 ## Requirements
 
@@ -62,3 +65,4 @@ No requirements.
 ## Outputs
 
 No output.
+
