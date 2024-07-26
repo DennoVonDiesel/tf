@@ -6,6 +6,8 @@ variable "environment" {
 variable "cidr" {
   description = "The 10.N.0.0/16 CIDR block of the network."
   type        = number
+
+  default = 0
 }
 
 variable "name" {
