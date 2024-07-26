@@ -1,25 +1,30 @@
-variable "vpc" {
-  description = "Name of the VPC"
+variable "environment" {
+  description = "The name of the environment"
   type        = string
 }
 
 variable "cidr" {
-  description = "CIDR block of the VPC (10.NNN.0.0/16)"
+  description = "The 10.N.0.0/16 CIDR block of the network."
   type        = number
-
-  default = 10
 }
 
-variable "azs" {
-  description = "Availability zones of the VPC (max 4)"
-  type        = list(string)
+variable "name" {
+  description = "The name of the VPC, defaults to [environment]"
+  type        = string
 
-  default = ["a", "b"]
+  default = ""
+}
+
+variable "single_nat_gateway" {
+  description = "Enagle single NAT gateway"
+  type        = bool
+
+  default = true
 }
 
 variable "tags" {
   description = "Tags applied to all resources"
-  type        = map
+  type        = map(any)
 
   default = {}
 }
