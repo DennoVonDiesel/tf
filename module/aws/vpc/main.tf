@@ -42,10 +42,14 @@ module "vpc" {
     Tier = "intra"
   }
   private_subnet_tags = {
-    Tier = "private"
+    Tier                              = "private"
+    "kubernetes.io/role/internal-elb" = 1
+    "karpenter.sh/discovery"          = local.name
   }
   public_subnet_tags = {
-    Tier = "public"
+    Tier                     = "public"
+    "kubernetes.io/role/elb" = 1
+
   }
 
   public_route_table_tags = {
@@ -86,4 +90,58 @@ resource "aws_elasticache_subnet_group" "default" {
     local.tags,
     var.tags
   )
+}
+
+# Security groups
+resource "aws_security_group" "db" {
+  name        = format("%s-db", module.vpc.name)
+  description = "Allow VPC access to RDS"
+  vpc_id      = module.vpc.vpc_id
+
+  tags = merge(
+    {
+      Name = format("%s-db", module.vpc.name)
+    },
+    local.tags
+  )
+}
+
+resource "aws_vpc_security_group_ingress_rule" "mysql" {
+  security_group_id = aws_security_group.db.id
+  description       = "Allow VPC access to MySQL"
+  ip_protocol       = "tcp"
+  from_port         = 3306
+  to_port           = 3306
+  cidr_ipv4         = module.vpc.vpc_cidr_block
+}
+
+resource "aws_vpc_security_group_ingress_rule" "postgresql" {
+  security_group_id = aws_security_group.db.id
+  description       = "Allow VPC access to PostgreSQL"
+  ip_protocol       = "tcp"
+  from_port         = 5432
+  to_port           = 5432
+  cidr_ipv4         = module.vpc.vpc_cidr_block
+}
+
+resource "aws_security_group" "elasticache" {
+  name        = format("%s-elasticache", module.vpc.name)
+  description = "Allow VPC access to ElastiCache"
+  vpc_id      = module.vpc.vpc_id
+
+  tags = merge(
+    {
+      Name = format("%s-elasticache", module.vpc.name)
+    },
+    local.tags
+  )
+}
+
+resource "aws_vpc_security_group_ingress_rule" "redis" {
+  security_group_id = aws_security_group.redis.id
+  description       = "Allow VPC access to Redis"
+  ip_protocol       = "tcp"
+  from_port         = 6379
+  to_port           = 6379
+  cidr_ipv4         = module.vpc.vpc_cidr_block
 }

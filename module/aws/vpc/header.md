@@ -18,7 +18,7 @@ data "aws_vpc" "vpc" {
   tags = {
     Name = var.vpc
   }
-
+}
 
 data "aws_subnet_ids" "public" {
   vpc_id = data.aws_vpc.id
@@ -29,7 +29,7 @@ data "aws_subnet_ids" "public" {
 }
 ```
 
-See https://www.terraform.io/docs/providers/aws/d/subnet_ids.html for more information.
+Subnets are tagged for use with EKS, specifically the AWS load balancer controller and Karpenter.
 
 ## Example Usage
 
@@ -44,3 +44,4 @@ module "vpc" {
 
 v0.1.0: Initial release
 v0.2.0: Update to latest VPC module and use cidrsubnet
+v0.3.0: Add EKS support, outputs, and security groups
