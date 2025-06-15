@@ -17,6 +17,7 @@ data "aws_vpc" "vpc" {
   tags = {
     Name = var.vpc
   }
+}
 
 data "aws_subnet_ids" "public" {
   vpc_id = data.aws_vpc.id
@@ -27,7 +28,7 @@ data "aws_subnet_ids" "public" {
 }
 ```
 
-See https://www.terraform.io/docs/providers/aws/d/subnet_ids.html for more information.
+Subnets are tagged for use with EKS, specifically the AWS load balancer controller and Karpenter.
 
 ## Example Usage
 
@@ -42,6 +43,7 @@ module "vpc" {
 
 v0.1.0: Initial release
 v0.2.0: Update to latest VPC module and use cidrsubnet
+v0.3.0: Add EKS support, outputs, and security groups
 
 ## Requirements
 
@@ -68,6 +70,11 @@ v0.2.0: Update to latest VPC module and use cidrsubnet
 |------|------|
 | [aws_db_subnet_group.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_subnet_group) | resource |
 | [aws_elasticache_subnet_group.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/elasticache_subnet_group) | resource |
+| [aws_security_group.db](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_security_group.elasticache](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_vpc_security_group_ingress_rule.mysql](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
+| [aws_vpc_security_group_ingress_rule.postgresql](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
+| [aws_vpc_security_group_ingress_rule.redis](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule) | resource |
 | [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
@@ -75,7 +82,7 @@ v0.2.0: Update to latest VPC module and use cidrsubnet
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cidr"></a> [cidr](#input\_cidr) | The 10.N.0.0/16 CIDR block of the network. | `number` | n/a | yes |
+| <a name="input_cidr"></a> [cidr](#input\_cidr) | The 10.N.0.0/16 CIDR block of the network. | `number` | `0` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The name of the environment | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | The name of the VPC, defaults to [environment] | `string` | `""` | no |
 | <a name="input_single_nat_gateway"></a> [single\_nat\_gateway](#input\_single\_nat\_gateway) | Enagle single NAT gateway | `bool` | `true` | no |
