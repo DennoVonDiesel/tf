@@ -90,4 +90,13 @@ v0.3.0: Add EKS support, outputs, and security groups
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_db_security_group"></a> [db\_security\_group](#output\_db\_security\_group) | The database security group ID |
+| <a name="output_db_subnet_group"></a> [db\_subnet\_group](#output\_db\_subnet\_group) | The default database subnet group name |
+| <a name="output_elasticache_security_group"></a> [elasticache\_security\_group](#output\_elasticache\_security\_group) | The ElastiCache security group ID |
+| <a name="output_elasticache_subnet_group"></a> [elasticache\_subnet\_group](#output\_elasticache\_subnet\_group) | The default ElastiCache subnet group name |
+| <a name="output_id"></a> [id](#output\_id) | The VPC ID |
+| <a name="output_intra_subnets"></a> [intra\_subnets](#output\_intra\_subnets) | The intranet subnet IDs |
+| <a name="output_private_subnets"></a> [private\_subnets](#output\_private\_subnets) | The private subnet IDs |
+| <a name="output_public_subnets"></a> [public\_subnets](#output\_public\_subnets) | The public subnet IDs |
