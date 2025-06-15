@@ -138,7 +138,7 @@ resource "aws_security_group" "elasticache" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "redis" {
-  security_group_id = aws_security_group.redis.id
+  security_group_id = aws_security_group.elasticache.id
   description       = "Allow VPC access to Redis"
   ip_protocol       = "tcp"
   from_port         = 6379
